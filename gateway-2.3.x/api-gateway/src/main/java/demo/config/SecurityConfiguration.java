@@ -24,30 +24,22 @@ public class SecurityConfiguration {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
-                .authorizeExchange()
-                .pathMatchers("/").permitAll()
-                .anyExchange().authenticated()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusServerEntryPoint(UNAUTHORIZED))
-                // TODO: why doesn't it work?
-                .accessDeniedHandler(new HttpStatusServerAccessDeniedHandler(FORBIDDEN))
-                .and()
-                .oauth2Login()
-                .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("/"))  // default is protected page previously visited
-                .and()
-                .logout()
-                .logoutSuccessHandler(createLogoutHandler("/")) // default is /login?logout
-                .and()
-                .csrf().disable()
+                .authorizeExchange(authorizeExchange -> authorizeExchange
+                        .pathMatchers("/").permitAll()
+                        .anyExchange().authenticated())
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint(new HttpStatusServerEntryPoint(UNAUTHORIZED))
+                        // TODO: why doesn't it work?
+                        .accessDeniedHandler(new HttpStatusServerAccessDeniedHandler(FORBIDDEN)))
+                .oauth2Login(login -> login.authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("/"))) // default is protected page previously visited
+                .logout(logout -> logout.logoutSuccessHandler(createLogoutHandler("/"))) // default is /login?logout
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .build();
     }
 
     /**
      * Alternatively this could be applied per each route as
-     * <pre>
      * .filters(f -> f.filter(filterFactory.apply()))
-     * </pre>
      */
     @Bean
     public GlobalFilter tokenRelayFilter(TokenRelayGatewayFilterFactory filterFactory) {
