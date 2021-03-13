@@ -1,5 +1,8 @@
 rootProject.name = 'spring-security'
 
+include 'simple:jwt'
+include 'simple:oauth2-github-web'
+include 'simple:oauth2-github-webflux'
 include 'simple:oauth2-github-webflux-jwt'
 
 include 'jwt-jwk:authentication-server'

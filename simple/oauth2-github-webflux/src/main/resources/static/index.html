@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Security Demo</title>
+    <script>
+        (function() {
+            fetch('/user')
+              .then(response => response.json())
+              .then(user => {
+                    document.getElementById('user').innerHTML = user.attributes.login;
+              });
+        })();
+    </script>
+</head>
+<body>
+    <div id="user"></div>
+    <a href="/oauth2/authorization/github">Login</a>
+    <form action="/logout" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+    <div>Links:</div>
+    <a href="/user">/user</a>
+    <br/>
+    <a href="/secured/is/anonymous">/secured/is/anonymous</a>
+    <br/>
+    <a href="/secured/is/authenticated">/secured/is/authenticated</a>
+    <br/>
+    <a href="/secured/role/user">/secured/role/user</a>
+    <br/>
+    <a href="/secured/role/denied">/secured/role/denied</a>
+</body>
+</html>

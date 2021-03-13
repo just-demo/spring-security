@@ -1,0 +1,9 @@
+dependencies {
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+    // Needed to make @PreAuthorize("#oauth2...") work
+    // implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
+}
