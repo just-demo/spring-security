@@ -7,3 +7,7 @@ include 'simple:oauth2-github-webflux-jwt'
 
 include 'jwt-jwk:authentication-server'
 include 'jwt-jwk:resource-server'
+
+include 'gateway-2.3.x:service-registry'
+include 'gateway-2.3.x:resource-server'
+include 'gateway-2.3.x:api-gateway'

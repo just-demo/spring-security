@@ -1,0 +1,15 @@
+server:
+  port: 8870
+spring:
+  application:
+    name: resource-server
+# just security vs spring.security matters here!
+security:
+  oauth2:
+    resource:
+      userInfoUri: https://api.github.com/user
+
+logging:
+  level:
+#    root: DEBUG
+    org.springframework.security: DEBUG
