@@ -1,0 +1,32 @@
+server:
+  port: 8765
+spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8180/auth/realms/master/protocol/openid-connect/token
+            authorization-uri: http://localhost:8180/auth/realms/master/protocol/openid-connect/auth
+            userinfo-uri: http://localhost:8180/auth/realms/master/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          demo:
+            provider: keycloak
+            client-id: demo
+            client-secret: 895b09d7-953f-4acb-b6a2-c6cdfe590737
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: resource-server
+          uri: lb://resource-server
+          predicates:
+            - Path=/resource-server/**
+          filters:
+            - StripPrefix=1

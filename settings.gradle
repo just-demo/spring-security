@@ -11,3 +11,7 @@ include 'jwt-jwk:resource-server'
 include 'gateway-2.3:service-registry'
 include 'gateway-2.3:resource-server'
 include 'gateway-2.3:api-gateway'
+
+include 'gateway-2.4:service-registry'
+include 'gateway-2.4:resource-server'
+include 'gateway-2.4:gateway'

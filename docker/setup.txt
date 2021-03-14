@@ -1,0 +1,7 @@
+1) Got to http://localhost:8180/auth/admin
+2) Login with admin/admin
+3) Client Scopes -> Create -> Name = user -> Save
+4) Clients -> Create -> Client ID = demo -> Save
+5) -> Access Type = confidential, Valid Redirect URIs = * -> Save
+6) -> Client Scopes -> Default Client Scopes -> user -> Add selected
+7) -> Credentials -> Secret -> copy and paste to application.yml as client-secret

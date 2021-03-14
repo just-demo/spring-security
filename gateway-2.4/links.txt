@@ -1,0 +1,6 @@
+http://localhost:8761/
+
+http://localhost:8765/
+http://localhost:8765/session
+
+http://localhost:8765/resource-server/user
