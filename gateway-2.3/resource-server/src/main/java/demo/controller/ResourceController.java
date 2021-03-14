@@ -1,6 +1,7 @@
 package demo.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class ResourceController {
     }
 
     @GetMapping("/principal")
-    public Principal principal(Principal principal) {
+    public Principal principal(@AuthenticationPrincipal Principal principal) {
         return principal;
     }
 
@@ -25,9 +26,9 @@ public class ResourceController {
         return "Allowed!";
     }
 
-    @PreAuthorize("#oauth2.hasScope('admin') and hasRole('ROLE_ADMIN')")
-    @GetMapping("/admin")
-    public String admin() {
-        return "Allowed!";
+    @PreAuthorize("hasRole('ROLE_DENIED')")
+    @GetMapping("/denied")
+    public String denied() {
+        return "Denied!";
     }
 }

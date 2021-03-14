@@ -1,7 +1,5 @@
 package demo.config;
 
-import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.cloud.security.oauth2.gateway.TokenRelayGatewayFilterFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -35,15 +33,6 @@ public class SecurityConfiguration {
                 .logout(logout -> logout.logoutSuccessHandler(createLogoutHandler("/"))) // default is /login?logout
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .build();
-    }
-
-    /**
-     * Alternatively this could be applied per each route as
-     * .filters(f -> f.filter(filterFactory.apply()))
-     */
-    @Bean
-    public GlobalFilter tokenRelayFilter(TokenRelayGatewayFilterFactory filterFactory) {
-        return (exchange, chain) -> filterFactory.apply().filter(exchange, chain);
     }
 
     private RedirectServerLogoutSuccessHandler createLogoutHandler(String location) {
