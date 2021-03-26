@@ -1,0 +1,112 @@
+TODO: try implementing security two ways:
+1) Using Spring Cloud Gateway
+2) Using SSO https://spring.io/projects/spring-cloud-security
+
+https://cloud.spring.io/spring-cloud-security/reference/html/
+https://www.baeldung.com/spring-cloud-securing-services
+
+https://spring.io/blog/2019/08/16/securing-services-with-spring-cloud-gateway
+
+https://github.com/spring-projects/spring-security-oauth/milestone/55?closed=1
+https://stackoverflow.com/questions/60742617/why-is-enableoauth2sso-deprecated
+----------
+
+https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide#simplified-enablement-1
+https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide
+>>>>>>>>>>> continue here
+https://spring.io/blog/2020/04/15/announcing-the-spring-authorization-server
+
+https://www.baeldung.com/spring-security-oauth2-enable-resource-server-vs-enable-oauth2-sso
+https://www.baeldung.com/spring-security-5-oauth2-login
+
+https://www.toptal.com/spring/spring-boot-oauth2-jwt-rest-protection
+-----------
+
+Spring boot actuator exposes liveness and readiness endpoints that can be easily integrated with kubernetes liveness prob and readyness prob
+------------
+gradlew bootBuildImage
+=========================
+Examples:
+1. Centralized configuration
+2. TODO: debug headers to see how sleuth tracing works - no luck?
+3. TODO: implement security
+4.  a) Ribbon -> Spring Cloud LoadBalancer
+    b) Zuul -> Spring Cloud Gateway
+    c) Hystrix -> Resilience4j
+============
+TODO: start here
+new and must be interesting: https://www.baeldung.com/spring-security-oauth-resource-server
+try this? https://spring.io/guides/tutorials/spring-boot-oauth2/
+https://github.com/spring-guides/tut-spring-boot-oauth2
+
+https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2client
+
+https://keyholesoftware.com/2020/06/30/quick-start-spring-security-5-oauth2-login/
+
+// too complex:
+1 - https://www.baeldung.com/keycloak-embedded-in-spring-boot-app
+2 - https://www.baeldung.com/rest-api-spring-oauth2-angular
+=============
+http://localhost:8761/
+
+http://localhost:8080/
+
+http://localhost:8765/resource-server
+http://localhost:8765/resource-server/principal
+http://localhost:8765/resource-server/admin
+
+TODO: start here - now it works if both api-gateway and auth server run from 1.x,
+   try to replace 1.x api-gateway with 2.x one first and then replace 1.x auth server with github
+
+many options, must be interesting https://dzone.com/articles/how-to-use-spring-cloud-gateway-with-oauth-20-patt
+
+JWT via github: https://docs.github.com/en/developers/apps/authenticating-with-github-apps
+!!!!!!!!!!!! github + gateway issue https://cloud.spring.io/spring-cloud-security/reference/html/#_oauth2_single_sign_on
+================
+        // TODO: start here
+        //  1) create an example of spring cloud proxy!!!
+        //  2) create an example of custom role (really needed???)
+        //  3) investigate what is spring-boot-starter-oauth2-resource-server for???
+        //  4) consider using in-memory auth https://stackoverflow.com/questions/32442408/preauthorize-not-working-on-controller/32443631
+        //     for spring cloud and move oauth2 to a separate demo project? or there must be a
+        //     token generated and passed through?
+        //  5) TODO: check-in a separate project for webflux!!!
+//    @Bean
+//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+//        KeyPair keyPair = new KeyStoreKeyFactory(
+//                new ClassPathResource("keystore.jks"), "foobar".toCharArray())
+//                .getKeyPair("test");
+//        converter.setKeyPair(keyPair);
+//        return converter;
+//    }
+
+TODO: try keycloak and github+JWT (see examples of JWT beans in 1.x auth server)
+
+!!! TODO: start here, it is time to carefully read https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2
+!!! Consider creating spring-cloud-security-2.3.x and continue working on 2.4+JWT in the current one
+!!! Also rename spring-cloud-gateway-security-1.x to spring-cloud-security-1.x
+!!! Consider creating spring-cloud-security-2.x project with two directories:
+    spring-cloud-security-2.3.x
+    spring-cloud-security-2.4.x
+
+TODO: 11-03-2021 - start here:
+1) Implement keycloak https://piotrminkowski.com/2020/10/09/spring-cloud-gateway-oauth2-with-keycloak/
+2) Try generating JWT token on oauth2 login success
+
+-------------------------
+https://www.keycloak.org/getting-started/getting-started-docker
+https://hub.docker.com/r/jboss/keycloak/
+docker run -p 8180:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jboss/keycloak
+http://localhost:8180/auth/admin
+http://localhost:8180/auth/realms/myrealm/account
+
+-------------------
+implementation 'io.springfox:springfox-boot-starter:3.0.0'
+@EnableSwagger2
+.antMatchers(
+        "/swagger-ui/**",
+        "/swagger-resources/**",
+        "/*/api-docs/**"
+).permitAll()
+-------------------
